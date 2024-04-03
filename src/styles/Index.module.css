@@ -9,17 +9,17 @@
 @media (max-width: 768px) { 
     .gridContainer {
         grid-template-columns: repeat(2, 1fr);
-        height: calc(100vh - /* Header + Footer height for tablet */);
+        height: calc(100vh - 11.5rem);
     }
     .imageContainer:nth-child(n+3) {
-        display: none; /* Hide images beyond the first two */
+        display: none; 
     }
 }
 
 @media (max-width: 480px) { 
     .gridContainer {
         grid-template-columns: repeat(2, 1fr);
-        height: calc(100vh - /* Header + Footer height for mobile */);
+        height: calc(100vh - 11.5rem);
     }
     .imageContainer:nth-child(n+3) {
         display: none; 
@@ -27,10 +27,11 @@
 }
 
 .imageContainer {
+    position: relative;
+    width: 100%; 
+    height: 100%;
     overflow: hidden;
-    justify-content: center;
-    align-items: center;
-}
+  }
 
 .imageContainer img {
     transition: transform 0.3s ease;

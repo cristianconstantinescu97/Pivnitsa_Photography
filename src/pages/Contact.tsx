@@ -1,15 +1,83 @@
 import Layout from '../components/Layout';
+import styles from '../styles/Contact.module.css';
+import Select from 'react-select';
+import React, { useEffect, useState, useRef  } from 'react';
+import countryList from 'react-select-country-list';
+import emailjs from 'emailjs-com';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Contact = () => {
+    const serviceId = 'service_s5etb7c';
+    const templateId = 'template_x2adjes';
+    const publicKey = 'MHLCFMz_B7lFxDCeJ';
+
+    const options = React.useMemo(() => countryList().getData(), []);
+    const [isMounted, setIsMounted] = useState(false);
+    const formRef = useRef(null);
+
+    useEffect(() => {
+        setIsMounted(true);
+      }, []);
+
+    const sendEmail = (e) => {
+        e.preventDefault();
+
+        emailjs.sendForm(serviceId, templateId, e.target, publicKey)
+            .then((result) => {
+                toast.success('Sent successfully!', {
+                    position: "top-right",
+                    autoClose: 3500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+                if(formRef.current !== null) { formRef.current.reset(); }
+            }, (error) => {
+                toast.error('Failed to send. Please try again later.', {
+                    position: "top-right",
+                    autoClose: 3500,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                  });
+            });
+    };
+
     return (
         <Layout>
-            <div className="contact-section">
-                <h1>Contact Us</h1>
-                <p>Fill out the form below to get in touch with us.</p>
-                {/* Insert contact form here */}
+          <ToastContainer />
+          <div className={styles.contactContainer}>
+            <h1 className={styles.contactTitle}>Let's get in touch</h1>
+            <div className={styles.formContainer}>
+              <form className={styles.contactForm} ref={formRef} onSubmit={sendEmail}>
+                <div className={styles.formRow}>
+                  <input type="text" name="user_name" placeholder="Name *" required className={styles.formInput} />
+                  <input type="email" name="user_email" placeholder="Email *" required className={styles.formInput} />
+                </div>
+                <div className={styles.formRow}>
+                  <input type="tel" name="user_phonenumber" placeholder="Phone Number *" className={styles.formInput} />
+                  {}
+                  {isMounted && (
+                    <Select
+                      name="user_country"
+                      options={options}
+                      className={styles.formInput}
+                      placeholder="Country *"
+                    />
+                  )}
+                </div>
+                <textarea name="user_message" placeholder="Message *" required className={styles.formMessage} />
+                <button type="submit" className={styles.formSubmit}>Send</button>
+              </form>
             </div>
+          </div>
         </Layout>
-    );
+      );
 };
 
 export default Contact;

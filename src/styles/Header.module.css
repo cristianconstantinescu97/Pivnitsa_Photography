@@ -4,8 +4,8 @@
     padding: 20px 0px;
     width: 80%;
     max-width: 1200px;
-    margin: 0 auto;
-    height: 10rem;
+    margin: 10px auto;
+    height: 6rem;
 }
 
 .logoContainer {
@@ -39,8 +39,8 @@
 }
 
 .logo {
-    height: 160px;
-    width: 200px;
+    height: 100px;
+    width: 120px;
     transition: transform 0.3s ease; 
     cursor: pointer;
     @media (max-width: 768px) {
@@ -50,7 +50,7 @@
 }
 
 .logo:hover {
-    transform: scale(1.1);
+    transform: scale(1.03);
 }
 
 .socialIcons {
@@ -80,7 +80,7 @@
 .navList {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 35px;
     list-style: none;
     padding: 0;
     margin: 0;

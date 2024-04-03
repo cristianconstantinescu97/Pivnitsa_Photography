@@ -16,6 +16,9 @@ const nextConfig = {
     config.resolve.modules.push(path.resolve('./src'));
     return config;
   },
+  images: {
+    domains: ['i.imgur.com'],
+  },
 };
 
 export default nextConfig;

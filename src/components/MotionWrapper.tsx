@@ -2,9 +2,9 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const pageTransitionVariants = {
-  hidden: { opacity: 0, x: -200, y: 0 },
-  enter: { opacity: 1, x: 0, y: 0 },
-  exit: { opacity: 0, x: 0, y: -100 },
+  hidden: { opacity: 0 },
+  enter: { opacity: 1 },
+  exit: { opacity: 0 },
 };
 
 type MotionWrapperProps = {
@@ -18,7 +18,7 @@ const MotionWrapper: React.FC<MotionWrapperProps> = ({ children }) => {
       animate="enter"
       exit="exit"
       variants={pageTransitionVariants}
-      transition={{ type: 'linear' }}
+      transition={{ duration: 0.5 }}
       className="page"
     >
       {children}

@@ -3,6 +3,7 @@ import styles from '../styles/Index.module.css';
 import Lightbox from 'react-18-image-lightbox';
 import { useState } from 'react';
 import 'react-18-image-lightbox/style.css';
+import Image from 'next/image';
 
 const Home = () => {
     const [photoIndex, setPhotoIndex] = useState(0);
@@ -20,7 +21,7 @@ const Home = () => {
             <div className={styles.gridContainer}>
                 {images.map((image, index) => (
                     <div key={index} className={styles.imageContainer} onClick={() => { setPhotoIndex(index); setIsOpen(true); }}>
-                        <img src={image} alt={`Photography ${index + 1}`} className="min-w-full min-h-full object-cover" />
+                        <Image src={image} alt={`Photography ${index + 1}`} layout="fill" />
                     </div>
                 ))}
             </div>
