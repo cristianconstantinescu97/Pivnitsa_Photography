@@ -14,16 +14,18 @@ const Contact = () => {
 
     const options = React.useMemo(() => countryList().getData(), []);
     const [isMounted, setIsMounted] = useState(false);
-    const formRef = useRef(null);
+    const formRef = useRef<HTMLFormElement>(null);
 
     useEffect(() => {
         setIsMounted(true);
       }, []);
 
-    const sendEmail = (e) => {
+    const sendEmail = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        emailjs.sendForm(serviceId, templateId, e.target, publicKey)
+        const form = e.target as HTMLFormElement;
+
+        emailjs.sendForm(serviceId, templateId, form, publicKey)
             .then((result) => {
                 toast.success('Sent successfully!', {
                     position: "top-right",
@@ -34,7 +36,9 @@ const Contact = () => {
                     draggable: true,
                     progress: undefined,
                   });
-                if(formRef.current !== null) { formRef.current.reset(); }
+                if (formRef.current !== null) {
+                    formRef.current.reset();
+                }
             }, (error) => {
                 toast.error('Failed to send. Please try again later.', {
                     position: "top-right",
@@ -52,9 +56,9 @@ const Contact = () => {
         <Layout>
           <ToastContainer />
           <div className={styles.contactContainer}>
-            <h1 className={styles.contactTitle}>Let's get in touch</h1>
+            <h1 className={styles.contactTitle}>Get in touch</h1>
             <div className={styles.formContainer}>
-              <form className={styles.contactForm} ref={formRef} onSubmit={sendEmail}>
+              <form ref={formRef} onSubmit={sendEmail} className={styles.contactForm}>
                 <div className={styles.formRow}>
                   <input type="text" name="user_name" placeholder="Name *" required className={styles.formInput} />
                   <input type="email" name="user_email" placeholder="Email *" required className={styles.formInput} />
